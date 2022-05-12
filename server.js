@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
-
-// Require para usar Prisma
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -53,8 +51,6 @@ app.delete('/explorers/:id', async (req, res) => {
 	await prisma.explorer.delete({where: {id: id}});
 	return res.json({message: "Eliminado correctamente"});
 });
-
-// Second part
 
 app.get('/explorers2', async (req, res) => {
     const allExplorers2 =  await prisma.explorer2.findMany({});
