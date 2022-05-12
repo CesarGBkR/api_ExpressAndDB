@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Explorer {
+model explorer {
   id Int @id @default(autoincrement())
   name String @unique
   username String @db.VarChar(255)
@@ -18,4 +18,13 @@ model Explorer {
   azureCertification Boolean @default(false)
   dateCreated DateTime @default(now())
   lastUpdated DateTime @updatedAt
+}
+
+model explorer2 {
+  id Int @id @default(autoincrement())
+  name String @unique
+  lang String
+  missionCommander String
+  enrollments Int 
+  hasCertification Boolean
 }
