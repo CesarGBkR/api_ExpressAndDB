@@ -87,7 +87,19 @@ const prisma = new PrismaClient();
         },
         });
 
-        console.log('Create 3 explorers');
+        const woopa8 = await prisma.missioncommander.upsert({
+        where: { name: 'Woopa 2' },
+        update: {},
+        create: {
+            name: 'Carlo',
+            username: 'Caarlo G',
+            mainStack: 'Js',
+            currenEnrollment: true,
+            hasAzureCertification: true
+        },
+        });
+
+        console.log('Create explorers');
     } catch(e) {
         console.error(e);
         process.exit(1);

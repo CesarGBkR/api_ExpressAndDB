@@ -28,3 +28,12 @@ model explorer2 {
   enrollments Int 
   hasCertification Boolean
 }
+
+model missioncommander {
+  id Int @id @default(autoincrement())
+  name String @unique
+  username String @unique
+  mainStack String
+  currenEnrollment Boolean
+  hasAzureCertification Boolean
+}

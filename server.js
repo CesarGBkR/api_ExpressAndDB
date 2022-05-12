@@ -103,11 +103,54 @@ app.put('/explorers2/:id', async (req, res) => {
 	return res.json({message: "Actualizado correctamente"});
 });
 
-app.delete('/explorers2/:id', async (req, res) => {
-	const id = parseInt(req.params.id);
-	await prisma.explorer2.delete({where: {id: id}});
-	return res.json({message: "Eliminado correctamente"});
+
+app.get('/missioncommnader', async (req, res) => {
+    const allCommanders =  await prisma.missioncommander.findMany({});
+    res.json(allCommanders);
 });
+
+app.get('/missioncommander/:id', async (req, res) => {
+    const id = req.params.id;
+    const missionCommander = await prisma.missioncommander.findUnique({where: {id: parseInt(id)}});
+    res.json(missionCommander);
+});
+
+app.post('/missioncommander', async (req, res) => {
+    const missioncommander = {
+        name: req.body.name,
+        username: req.body.username,
+        currentEnrollment: req.body.currentEnrollment,
+        hasAzureCertification: req.body.hasAzureCertification
+    };
+    const message = 'Explorer creado.';
+    await prisma.missioncommander.create({data: missioncommander});
+    return res.json({message});
+});
+
+app.put('//:id', async (req, res) => {
+	const id = parseInt(req.params.id);
+
+	await prisma.explorer2.update({
+		where: {
+			id: id
+		},
+		data: {
+			name: req.body.name,
+            username: req.body.username,
+            currentEnrollment: req.body.currentEnrollment,
+            hasAzureCertification: req.body.hasAzureCertification
+		}
+	})
+
+	return res.json({message: "Actualizado correctamente"});
+});
+
+app.delete('/missioncommander/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    await prisma.missioncommander.delete({where: {id: id}});
+    return res.json({message: "Eliminado correctamente"});
+});
+
 
 app.listen(port, () => {
     console.log(`Listening to requests on port ${port}`);
